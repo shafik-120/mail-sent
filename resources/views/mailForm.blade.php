@@ -2,7 +2,7 @@
 
 @section('othersContent')
 
-<form method="POST" action="{{route('sendingEmail')}}" class="max-w-sm mx-auto " enctype="multipart/form-data">
+<form method="POST" action="{{route('sendmails')}}" class="max-w-sm mx-auto " enctype="multipart/form-data">
     @csrf
     <div class="mb-5">
       <label for="mail_subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">mail subject</label>
