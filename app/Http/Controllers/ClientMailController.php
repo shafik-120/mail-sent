@@ -14,6 +14,8 @@ class ClientMailController extends Controller
      */
     public function index()
     {
+        $data = ClientMail::first();
+        return $data;
     }
 
     /**
