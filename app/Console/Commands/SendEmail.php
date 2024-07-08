@@ -35,11 +35,19 @@ class SendEmail extends Command
         $mail_subject = $data->mail_subject;
         $mail_body = $data->mail_body;
         $mail_files = $data->mail_files;
-        $sentMail = Mail::to($data->mail)->send(new ClientSendEmail([
+        
+        $mail_arr = [
             'mail' => $mail,
             'mail_subject' => $mail_subject,
             'mail_body' => $mail_body,
             'mail_files' => $mail_files,
-        ]));
+        ];
+
+        if(Mail::to($data->mail)->send(new ClientSendEmail($mail_arr))){
+            echo "successful";
+        } else{
+            echo "unsuccessful ";
+        }
+
     }
 }
