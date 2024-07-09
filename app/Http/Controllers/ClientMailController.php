@@ -15,8 +15,19 @@ class ClientMailController extends Controller
      */
     public function index()
     {
-        $data = ClientMail::first();
-        return $data;
+        $mail_arr = [
+            'mail' => 'test@gmail.com',
+            'mail_subject' => 'test subje4ct',
+            'mail_body' => 'ststlkjsdlf',
+            'mail_files' =>'lasjdfajsdoifjiojd,ajsdflos dfm, asfdlsfjdsf,dsfalsdj',
+        ];
+        $senderEmails = Sender_mail::all();
+        foreach ($senderEmails as $senderMail) {
+          $mail_arr['from_email'] = $senderMail->mail;
+         echo "<pre>";
+          print_r($mail_arr);
+         echo "</pre>";
+        }
     }
 
     /**

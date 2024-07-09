@@ -66,4 +66,24 @@ class ClientSendEmail extends Mailable
         }
         return $attachment;
     }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build(){
+        $from_email = $this->data['from_email']; // email user sent pathate hobe
+        $from_name = $this->data['from_name'] ?? 'Defult Name'; // Use default name if not provided
+        $email = $this->from($from_email, $from_name)
+                      ->subject($this->data['mail_subject'])
+                      ->view('mail.template');
+
+        foreach ($this->attachments() as $attachFile) {
+            $email->attach($attachFile);
+        }
+
+        return $email;
+    }
+
 }
