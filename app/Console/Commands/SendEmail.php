@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Mail\ClientSendEmail;
 use App\Models\ClientMail;
+use App\Models\Mail_message;
 use App\Models\Sender_mail;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
@@ -44,13 +45,30 @@ class SendEmail extends Command
             'mail_files' => $mail_files,
         ];
 
+        function deletANDcreate($getMails)
+        {
+            Mail_message::create([
+                'mail' => $getMails,
+                'msg' => 'Mail Sent successful'
+            ]);
+
+            Mail_message::where('mail', $getMails)->delete();
+
+            return true;
+        }
+
         $senderEmails = Sender_mail::all();
         foreach ($senderEmails as $senderMail) {
             $mail_arr['from_email'] = $senderMail->mail;
-            if (Mail::to($data->mail)->send(new ClientSendEmail($mail_arr))) {
-                echo "successful";
-            } else {
-                echo "unsuccessful ";
+            try {
+                Mail::to($data->mail)->send(new ClientSendEmail($mail_arr));
+                if(deletANDcreate($data->mail)){
+                    echo "mail delete create successful";
+                } else{
+                    echo "mail delete create Unsuccessful";
+                }
+            } catch (\Throwable $th) {
+                echo "unsuccessful: " . $th->getMessage();
             }
         }
     }

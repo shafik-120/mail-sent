@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('error_mails', function (Blueprint $table) {
+        Schema::create('mail_messages', function (Blueprint $table) {
             $table->id();
             $table->string('mail');
             $table->text('msg');
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('error_mails');
+        Schema::dropIfExists('mail_messages');
     }
 };

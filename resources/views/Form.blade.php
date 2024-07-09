@@ -39,7 +39,7 @@
     </form>
 
 
-    @if(session('success'))
+    @if(session('msg'))
     <div class="flex items-start max-sm:flex-col bg-green-100 text-green-800 p-4 rounded-lg relative" role="alert">
         <div class="flex items-center max-sm:mb-2">
           <svg xmlns="http://www.w3.org/2000/svg" class="w-[18px] fill-green-500 inline mr-3" viewBox="0 0 512 512">

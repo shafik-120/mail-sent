@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\ClientMail;
 use App\Models\Sender_mail;
+use App\Models\Mail_message;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class ClientMailController extends Controller
 {
@@ -15,19 +17,28 @@ class ClientMailController extends Controller
      */
     public function index()
     {
-        $mail_arr = [
-            'mail' => 'test@gmail.com',
-            'mail_subject' => 'test subje4ct',
-            'mail_body' => 'ststlkjsdlf',
-            'mail_files' =>'lasjdfajsdoifjiojd,ajsdflos dfm, asfdlsfjdsf,dsfalsdj',
-        ];
-        $senderEmails = Sender_mail::all();
-        foreach ($senderEmails as $senderMail) {
-          $mail_arr['from_email'] = $senderMail->mail;
-         echo "<pre>";
-          print_r($mail_arr);
-         echo "</pre>";
-        }
+        // $SenderMails = Sender_mail::all();
+        // $clientMail = ClientMail::first();
+        // if ($clientMail) {
+        //     foreach ($SenderMails as $value) {
+        //         $mail_arr = [
+        //             'mail' => $clientMail->mail,
+        //             'mail_subject' => $clientMail->mail_subject,
+        //             'mail_body' => $clientMail->mail_body,
+        //             'mail_files' => $clientMail->mail_files,
+        //             'from_email' => $value['mail'],
+        //         ];
+        //         $messageMail = Mail_message::create([
+        //             'mail' => $clientMail->mail,
+        //             'msg' => 'mail sent successful'
+        //         ]);
+        //         $deleteMail = ClientMail::where('mail', $clientMail->mail)->delete();
+                
+        //         echo "<pre>";
+        //         print_r($mail_arr);
+        //         echo " </pre>";
+        //     }
+        // }
     }
 
     /**
@@ -87,7 +98,7 @@ class ClientMailController extends Controller
             }
         }
 
-        return back()->with('success','You have successfully upload file.');
+        return back()->with('msg', 'You have successfully upload file.');
     }
 
     /**
