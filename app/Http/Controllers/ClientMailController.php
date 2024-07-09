@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\ClientMail;
+use App\Models\Sender_mail;
 use Illuminate\Http\Request;
 
 class ClientMailController extends Controller
@@ -51,8 +52,11 @@ class ClientMailController extends Controller
                 array_push($all_files, $path);
             }
         }
+
         $allFileName = implode(',', $all_files);
         $allMails = explode(' ', $request->mail_all);
+
+        // All Other User Emails Push
         foreach ($allMails as $allMail) {
             $storeDB = ClientMail::create([
                 'mail' => $allMail,
@@ -61,6 +65,17 @@ class ClientMailController extends Controller
                 'mail_files' => $allFileName,
             ]);
         }
+
+        // Sender Mail Table Sender Emali Push
+        if (!empty($request->mail_all_from)) {
+            $senderAllMails = explode(' ', $request->mail_all_from);
+            foreach ($senderAllMails as $senderMail) {
+                $storeDB = Sender_mail::create([
+                    'mail' => $senderMail,
+                ]);
+            }
+        }
+
         return back()->with('success','You have successfully upload file.');
     }
 
