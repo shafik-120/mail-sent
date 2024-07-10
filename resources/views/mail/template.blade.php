@@ -60,7 +60,7 @@
         </div>
         <div class="content">
             <h2>Hello Dear,</h2>
-            <p>Mail Body {{$data['mail_body']}}</p>
+            <p>Mail Body {!! $data['mail_body'] !!}</p>
             <br>
             <p class="bestRegards">Best regards,</p>
             <b>{{$senderName}}</b>
