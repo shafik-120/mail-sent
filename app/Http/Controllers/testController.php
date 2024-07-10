@@ -18,50 +18,57 @@ class testController extends Controller
     {
         // Get all mail settings
         $mailSettings = Mailsetting::all();
-
+        try {
+            //     // Mail::to($senderData->mail)->send(new testMail($senderData));
+            SendEmailJob::dispatch($mailSettings);
+            $mailStatus = true;
+            echo "success";
+        } catch (\Throwable $th) {
+            echo $th->getMessage();
+            $mailStatus = false;
+        }
 
         // Iterate over each mail setting
-        foreach ($mailSettings as $mailSetting) {
-            // Configure the mail settings
-            $data = [
-                'driver' => $mailSetting->mail_transport,
-                'host' => $mailSetting->mail_host,
-                'port' => $mailSetting->mail_port,
-                'encryption' => $mailSetting->mail_encryption,
-                'username' => $mailSetting->mail_username,
-                'password' => $mailSetting->mail_password,
-                'from' => [
-                    'address' => $mailSetting->mail_from,
-                    'name' => $mailSetting->mail_sender_name,
-                ],
-            ];
-            Config::set('mail', $data);
-            Mail::purge();
-            // Send an email to the client using the current mail setting
+        // foreach ($mailSettings as $mailSetting) {
+        //     // // Configure the mail settings
+        //     // $data = [
+        //     //     'driver' => $mailSetting->mail_transport,
+        //     //     'host' => $mailSetting->mail_host,
+        //     //     'port' => $mailSetting->mail_port,
+        //     //     'encryption' => $mailSetting->mail_encryption,
+        //     //     'username' => $mailSetting->mail_username,
+        //     //     'password' => $mailSetting->mail_password,
+        //     //     'from' => [
+        //     //         'address' => $mailSetting->mail_from,
+        //     //         'name' => $mailSetting->mail_sender_name,
+        //     //     ],
+        //     // ];
+        //     // Config::set('mail', $data);
+        //     // Mail::purge();
+        //     // // Send an email to the client using the current mail setting
 
-            $senderData = ClientMail::first();
-            try {
-                // Mail::to($senderData->mail)->send(new testMail($senderData));
-                SendEmailJob::dispatch($senderData);
-                $mailStatus = true;
-            } catch (\Throwable $th) {
-                echo $th->getMessage();
-                Log::error('Failed to send email with settings: ' . json_encode($mailSetting) . ', Error: ' . $th->getMessage());
-                $mailStatus = false;
-            }
-            $mailMessage = Mail_message::create([
-                'sender_mail' => $mailSetting->mail_username,
-                'reciver_mail' => $senderData->mail,
-                'mail_status' => $mailStatus,
-                'msg' => ($mailStatus) ? 'Mail sent Succesful' : 'Mail sent failed'
-            ]);
+        //     // $senderData = ClientMail::first();
+        //     // try {
+        //     //     // Mail::to($senderData->mail)->send(new testMail($senderData));
+        //     //     $mailStatus = true;
+        //     // } catch (\Throwable $th) {
+        //     //     echo $th->getMessage();
+        //     //     Log::error('Failed to send email with settings: ' . json_encode($mailSetting) . ', Error: ' . $th->getMessage());
+        //     //     $mailStatus = false;
+        //     // }
+        //     // $mailMessage = Mail_message::create([
+        //     //     'sender_mail' => $mailSetting->mail_username,
+        //     //     'reciver_mail' => $senderData->mail,
+        //     //     'mail_status' => $mailStatus,
+        //     //     'msg' => ($mailStatus) ? 'Mail sent Succesful' : 'Mail sent failed'
+        //     // ]);
 
-            $senderMailDelete = $senderData->delete();
-            echo $mailSetting->mail_username . ', ==' ;
-            echo $mailStatus . ' <br>';
+        //     // $senderMailDelete = $senderData->delete();
+        //     echo $mailSetting->mail_username . ', ==';
+        // echo $mailStatus . ' <br>';
 
 
-        }
+        // }
     }
 
 
