@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use Config;
 use App\Mail\testMail;
 use App\Models\ClientMail;
-use Config;
+use App\Models\Mail_message;
 use App\Models\Mailsetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 
 class testController extends Controller
@@ -36,11 +38,25 @@ class testController extends Controller
             Mail::purge();
             // Send an email to the client using the current mail setting
 
-            $datas = [
-                'mail_subject' => 'testing purpose'
-            ];
-            echo $mailSetting->mail_username . ',';
-            Mail::to('kimayaaria@gmail.com')->send(new testMail($datas));
+            $senderData = ClientMail::first();
+            try {
+                Mail::to($senderData->mail)->send(new testMail($senderData));
+                $mailStatus = true;
+            } catch (\Throwable $th) {
+                echo $th->getMessage();
+                Log::error('Failed to send email with settings: ' . json_encode($mailSetting) . ', Error: ' . $th->getMessage());
+                $mailStatus = false;
+            }
+            $mailMessage = Mail_message::create([
+                'mail' => $senderData->mail,
+                'msg' => ($mailStatus) ? 'Mail sent Succesful' : 'Mail sent failed'
+            ]);
+
+            $senderMailDelete = $senderData->delete();
+            echo $mailSetting->mail_username . ', ==' ;
+            echo $mailStatus . ' <br>';
+
+
         }
     }
 

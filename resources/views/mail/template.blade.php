@@ -8,8 +8,8 @@
 </head>
 <body>
 
-   {{-- <p> {{$data['mail_body']}}</p> --}}
-    {{-- <pre>{{$data['mail_files']}}</pre>  --}}
+   <p> {{$data['mail_body']}}</p>
+    <pre>{{$data['mail_files']}}</pre> 
 
     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perferendis eos iusto reprehenderit porro atque possimus debitis optio esse magnam commodi distinctio ex, officiis, libero dolores natus minus animi odio neque!</p>
 
