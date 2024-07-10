@@ -48,7 +48,9 @@ class testController extends Controller
                 $mailStatus = false;
             }
             $mailMessage = Mail_message::create([
-                'mail' => $senderData->mail,
+                'sender_mail' => $mailSetting->mail_username,
+                'reciver_mail' => $senderData->mail,
+                'mail_status' => $mailStatus,
                 'msg' => ($mailStatus) ? 'Mail sent Succesful' : 'Mail sent failed'
             ]);
 
