@@ -26,24 +26,22 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $mailSetting = Mailsetting::all();
-        if ($mailSetting) {
-            foreach ($mailSetting as $key => $value) {
-                $data = [
-                    'driver' => $value->mail_transport,
-                    'host' => $value->mail_host,
-                    'port' => $value->mail_port,
-                    'encryption' => $value->mail_encryption,
-                    'username' => $value->mail_username,
-                    'password' => $value->mail_password,
-                    'from' => [
-                        'address' => $value->mail_from,
-                        'name' => $value->mail_sender_name,
-                    ],
-                ];
-                Config::set('mail', $data);
-            }
-        };
+        // $mailSetting = Mailsetting::first();
+        // if ($mailSetting) {
+        //     $data = [
+        //         'driver' => $mailSetting->mail_transport,
+        //         'host' => $mailSetting->mail_host,
+        //         'port' => $mailSetting->mail_port,
+        //         'encryption' => $mailSetting->mail_encryption,
+        //         'username' => $mailSetting->mail_username,
+        //         'password' => $mailSetting->mail_password,
+        //         'from' => [
+        //             'address' => $mailSetting->mail_from,
+        //             'name' => 'test Mail not Env'
+        //         ],
+        //     ];
+        //     Config::set('mail', $data);
+        // };
     }
 }
 
