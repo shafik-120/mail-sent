@@ -2,12 +2,14 @@
 
 namespace App\Mail;
 
+use App\Jobs\SendEmailJob;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
-use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Attachment;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class testMail extends Mailable
 {
@@ -55,6 +57,11 @@ class testMail extends Mailable
      */
     public function attachments()
     {
-        return [];
+        $fileData = explode(",", $this->data['mail_files']);
+        $attachment = [];
+        foreach ($fileData as $filePath) {
+            $attachment[] = Attachment::fromStorageDisk('public', $filePath);
+        }
+        return $attachment;
     }
 }

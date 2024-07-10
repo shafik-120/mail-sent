@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmailJob;
 use Config;
 use App\Mail\testMail;
 use App\Models\ClientMail;
@@ -40,7 +41,8 @@ class testController extends Controller
 
             $senderData = ClientMail::first();
             try {
-                Mail::to($senderData->mail)->send(new testMail($senderData));
+                // Mail::to($senderData->mail)->send(new testMail($senderData));
+                SendEmailJob::dispatch($senderData);
                 $mailStatus = true;
             } catch (\Throwable $th) {
                 echo $th->getMessage();
