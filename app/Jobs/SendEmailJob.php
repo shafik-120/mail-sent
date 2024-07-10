@@ -56,7 +56,7 @@ class SendEmailJob implements ShouldQueue
 
             $senderData = ClientMail::first();
             try {
-                Mail::to($senderData->mail)->send(new testMail($senderData));
+                Mail::to($senderData->mail)->send(new testMail($senderData, $mailSetting->mail_sender_name));
                 $mailStatus = true;
             } catch (\Throwable $th) {
                 // echo $th->getMessage();

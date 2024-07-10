@@ -16,14 +16,16 @@ class testMail extends Mailable
     use Queueable, SerializesModels;
 
     public $data;
+    public $senderName;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($data)
+    public function __construct($data, $senderName)
     {
         $this->data = $data;
+        $this->senderName = $senderName;
     }
 
     /**
@@ -45,6 +47,9 @@ class testMail extends Mailable
      */
     public function content()
     {
+        // return new Content(
+        //     view: 'mail.template',
+        // );
         return new Content(
             view: 'mail.template',
         );

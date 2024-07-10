@@ -16,18 +16,16 @@ class testController extends Controller
 {
     public function sentEmail()
     {
-        // Get all mail settings
+        // ini_set('max_execution_time', 300); // Increase execution time limit to 5 minutes
         $mailSettings = Mailsetting::all();
         try {
-            //     // Mail::to($senderData->mail)->send(new testMail($senderData));
             SendEmailJob::dispatch($mailSettings);
-            $mailStatus = true;
             echo "success";
         } catch (\Throwable $th) {
             echo $th->getMessage();
-            $mailStatus = false;
         }
-
+    }
+}
         // Iterate over each mail setting
         // foreach ($mailSettings as $mailSetting) {
         //     // // Configure the mail settings
@@ -69,7 +67,7 @@ class testController extends Controller
 
 
         // }
-    }
+
 
 
     // public function sentEmail()
@@ -95,4 +93,4 @@ class testController extends Controller
     //         Mail::to($senderData->mail)->send(new testMail($senderData));
     //     }
     // }
-}
+

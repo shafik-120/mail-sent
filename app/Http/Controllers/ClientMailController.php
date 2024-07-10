@@ -88,15 +88,6 @@ class ClientMailController extends Controller
             ]);
         }
 
-        // Sender Mail Table Sender Emali Push
-        if (!empty($request->mail_all_from)) {
-            $senderAllMails = explode(' ', $request->mail_all_from);
-            foreach ($senderAllMails as $senderMail) {
-                $storeDB = Sender_mail::create([
-                    'mail' => $senderMail,
-                ]);
-            }
-        }
 
         return back()->with('msg', 'You have successfully upload file.');
     }

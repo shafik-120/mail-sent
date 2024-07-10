@@ -60,13 +60,14 @@
         </div>
         <div class="content">
             <h2>Hello Dear,</h2>
-            <p>Mail Body {{$data['mail_body']}}</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, id libero vitae ratione voluptas quasi, dolor non dolorem neque voluptatem minus perferendis temporibus maxime, facere laborum esse ipsa rem pariatur!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, id libero vitae ratione voluptas quasi, dolor non dolorem neque voluptatem minus perferendis temporibus maxime, facere laborum esse ipsa rem pariatur!</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint, id libero vitae ratione voluptas quasi, dolor non dolorem neque voluptatem minus perferendis temporibus maxime, facere laborum esse ipsa rem pariatur!</p>
             <br>
             <p class="bestRegards">Best regards,</p>
-            <b>{{$senderName}}</b>
+            <b>Nova Ellie</b>
         </div>
       
     </div>
 </body>
 </html>
-
